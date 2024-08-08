@@ -1,11 +1,19 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const fs = require('fs');
+const csvParser = require('csv-parser');
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  const results = [];
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  fs.createReadStream('data/Egreesos_Prefeitura.csv')
+      .pipe(csvParser())
+      .on('data', (data) => results.push(data))
+      .on('end', () => {
+          res.json(results);
+      });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
