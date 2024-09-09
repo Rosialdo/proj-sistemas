@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Arquivo TXT</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Upload do Arquivo TXT</h2>
+        <form action="/upload_txt" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="txtfile" class="form-control-file" accept=".txt" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar TXT</button>
+        </form>
+    </div>
+</body>
+</html>

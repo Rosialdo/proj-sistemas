@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Arquivo CSV</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Upload do Arquivo CSV</h2>
+        <form action="/upload_csv" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="csvfile" class="form-control-file" accept=".csv" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar CSV</button>
+        </form>
+    </div>
+</body>
+</html>
