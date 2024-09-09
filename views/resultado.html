@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Egressos da UFRR</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Egressos da UFRR que Trabalham na Prefeitura</h1>
+        <p class="text-center"><strong>Quantidade de Egressos Encontrados:</strong> <%= funcionarios.length %></p>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Vínculo</th>
+                    <th>Cargo</th>
+                    <th>Salário Bruto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (funcionarios.length > 0) { %>
+                    <% funcionarios.forEach(funcionario => { %>
+                        <tr>
+                            <td><%= funcionario.NOME %></td>
+                            <td><%= funcionario.VINCULO %></td>
+                            <td><%= funcionario.CARGO %></td>
+                            <td><%= funcionario.BRUTO %></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4" class="text-center">Nenhum egresso encontrado</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

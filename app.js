@@ -12,7 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
-// Configurar o multer para armazenamento de arquivos
+// Configurar o multer para armazenamento de arquivos com múltiplos uploads
 const upload = multer({ dest: 'data/' });
 
 // Função para ler o arquivo de egressos
@@ -54,33 +54,27 @@ function verificarFuncionarios(callback) {
     }
 }
 
-// Rota para upload do arquivo CSV
-app.get('/upload_csv', (req, res) => {
-    res.render('upload_csv');
+// Rota para upload de ambos os arquivos
+app.post('/upload', upload.fields([{ name: 'csvfile', maxCount: 1 }, { name: 'txtfile', maxCount: 1 }]), (req, res) => {
+    if (req.files['csvfile']) {
+        fs.renameSync(req.files['csvfile'][0].path, './data/funcionarios.csv'); // Renomeia o arquivo CSV para o nome padrão
+    }
+    if (req.files['txtfile']) {
+        fs.renameSync(req.files['txtfile'][0].path, './data/egressos.txt'); // Renomeia o arquivo TXT para o nome padrão
+    }
+    res.redirect('/resultado'); // Redireciona para a página de resultados
 });
 
-// Rota para upload do arquivo TXT
-app.get('/upload_txt', (req, res) => {
-    res.render('upload_txt');
-});
-
-// Rota para processamento do upload do CSV
-app.post('/upload_csv', upload.single('csvfile'), (req, res) => {
-    fs.renameSync(req.file.path, './data/funcionarios.csv'); // Renomeia o arquivo para o nome padrão
-    res.redirect('/upload_txt'); // Redireciona para a página de upload do arquivo TXT
-});
-
-// Rota para processamento do upload do TXT
-app.post('/upload_txt', upload.single('txtfile'), (req, res) => {
-    fs.renameSync(req.file.path, './data/egressos.txt'); // Renomeia o arquivo para o nome padrão
-    res.redirect('/'); // Redireciona para a página principal
+// Rota para mostrar resultados
+app.get('/resultado', (req, res) => {
+    verificarFuncionarios((result) => {
+        res.render('resultado', { funcionarios: result });
+    });
 });
 
 // Rota para a página principal
 app.get('/', (req, res) => {
-    verificarFuncionarios((result) => {
-        res.render('index', { funcionarios: result });
-    });
+    res.render('index'); // Renderiza a nova página index com o formulário combinado
 });
 
 // Iniciar o servidor

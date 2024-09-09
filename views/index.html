@@ -2,42 +2,24 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Egressos da UFRR</title>
-    <!-- Incluindo o Bootstrap via CDN -->
+    <title>Upload de Arquivos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Egressos da UFRR que Trabalham na Prefeitura</h1>
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nome</th>
-                    <th>Vínculo</th>
-                    <th>Cargo</th>
-                    <th>Salario Bruto</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Iterando sobre os funcionários e mostrando cada um -->
-                <% if (funcionarios.length > 0) { %>
-                    <% funcionarios.forEach(funcionario => { %>
-                        <tr>
-                            <td><%= funcionario.NOME %></td>
-                            <td><%= funcionario.VINCULO %></td>
-                            <td><%= funcionario.CARGO %></td>
-                            <td><%= funcionario.BRUTO %></td>
-                        </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="3" class="text-center">Nenhum egresso encontrado</td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
+        <h2 class="text-center">Upload de Arquivos CSV e TXT</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="csvfile">Arquivo CSV:</label>
+                <input type="file" name="csvfile" id="csvfile" class="form-control-file" accept=".csv" required>
+            </div>
+            <div class="form-group">
+                <label for="txtfile">Arquivo TXT:</label>
+                <input type="file" name="txtfile" id="txtfile" class="form-control-file" accept=".txt" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enviar Arquivos</button>
+        </form>
     </div>
 </body>
 </html>
