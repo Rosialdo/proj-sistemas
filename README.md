@@ -83,4 +83,6 @@ O servidor estará rodando em http://localhost:3000.
 
 - **Chart.js:** Biblioteca JavaScript para criação de gráficos interativos.
 
-- **Bootstrap:** Framework CSS para estilização das páginas.
+- **Bootstrap:** Framework CSS para estilização das páginas
+
+### Link do video com explicando a aplicação: https://youtu.be/oEX_I5ENWq0
