@@ -11,23 +11,24 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Egressos da UFRR que Trabalham na Prefeitura</h1>
         <p class="text-center"><strong>Quantidade de Egressos Encontrados:</strong> <%= funcionarios.length %></p>
+
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Vínculo</th>
-                    <th>Cargo</th>
-                    <th>Salário Bruto</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Vínculo</th>
+                    <th class="text-center">Cargo</th>
                 </tr>
             </thead>
             <tbody>
                 <% if (funcionarios.length > 0) { %>
-                    <% funcionarios.forEach(funcionario => { %>
+                    <% funcionarios.forEach((funcionario, index) => { %>
                         <tr>
+                            <td class="text-center"><%= index + 1 %></td> <!-- Adiciona a contagem aqui -->
                             <td><%= funcionario.NOME %></td>
-                            <td><%= funcionario.VINCULO %></td>
-                            <td><%= funcionario.CARGO %></td>
-                            <td><%= funcionario.BRUTO %></td>
+                            <td class="text-center"><%= funcionario.VINCULO %></td>
+                            <td class="text-center"><%= funcionario.CARGO %></td>
                         </tr>
                     <% }) %>
                 <% } else { %>
@@ -37,9 +38,12 @@
                 <% } %>
             </tbody>
         </table>
-        <div class="text-center mt-4">
-            <a href="/" class="btn btn-secondary">Voltar</a>
+        
+        <div class="my-4">
+            <a href="/" class=" btn btn-secondary"> Voltar</a>
+            <a href="/graficos" class="btn btn-primary"> Ver Graficos</a>
         </div>
+
     </div>
 </body>
 </html>
