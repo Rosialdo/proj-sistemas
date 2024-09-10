@@ -22,8 +22,9 @@ Este projeto é uma aplicação web que permite verificar egressos da UFRR que t
 Primeiro, clone o repositório para o seu ambiente local:
 
 ```
-git clone <URL-do-repositorio>
-cd <nome-do-repositorio>
+git clone https://github.com/Rosialdo/proj-sistemas.git
+
+cd proj-sistemas
 ```
 
 ### Passo 2: Instalar as Dependências
