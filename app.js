@@ -7,7 +7,6 @@ const xlsx = require('xlsx');
 const app = express();
 const PORT = 3000;
 
-// Configurar o Express para servir arquivos estáticos e usar views
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -15,7 +14,6 @@ app.engine('html', require('ejs').renderFile);
 
 const upload = multer({ dest: path.join(__dirname, 'data') });
 
-// Função para ler o arquivo de egressos
 function lerEgressos() {
     const egressosPath = path.join(__dirname, 'data', 'egressos.txt');
     if (fs.existsSync(egressosPath)) {
@@ -30,18 +28,18 @@ function lerEgressos() {
 }
 
 // Função para converter XLSX para CSV com delimitador '|'
-function converterXlsxParaCsv(xlsxFilePath, csvFilePath) {
-    try {
-        const workbook = xlsx.readFile(xlsxFilePath);
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const csvData = xlsx.utils.sheet_to_csv(sheet, { FS: '|' });
-        fs.writeFileSync(csvFilePath, csvData);
-        console.log(`Arquivo XLSX convertido para CSV: ${csvFilePath}`);
-    } catch (error) {
-        console.error('Erro ao converter XLSX para CSV:', error);
-    }
-}
+// function converterXlsxParaCsv(xlsxFilePath, csvFilePath) {
+//     try {
+//         const workbook = xlsx.readFile(xlsxFilePath);
+//         const sheetName = workbook.SheetNames[0];
+//         const sheet = workbook.Sheets[sheetName];
+//         const csvData = xlsx.utils.sheet_to_csv(sheet, { FS: '|' });
+//         fs.writeFileSync(csvFilePath, csvData);
+//         console.log(`Arquivo XLSX convertido para CSV: ${csvFilePath}`);
+//     } catch (error) {
+//         console.error('Erro ao converter XLSX para CSV:', error);
+//     }
+// }
 
 // Função para ler dados de CSV e converter para JSON
 function lerArquivoFuncionarios(callback) {
@@ -63,14 +61,12 @@ function lerArquivoFuncionarios(callback) {
     }
 }
 
-// Função para processar funcionários e preparar dados para gráficos e resultados
-// Função para processar funcionários e preparar dados para gráficos e resultados
+
 function processarFuncionarios(data, egressos, callback) {
     const funcionarios = data.filter(row => egressos.includes(row['NOME']?.toLowerCase()));
     const salarios = funcionarios.map(f => parseFloat(f['BRUTO'].replace(',', '.')) || 0);
     const mediaSalarial = (salarios.reduce((a, b) => a + b, 0) / salarios.length).toFixed(2);
 
-    // Contando vínculos e cargos
     const vinculos = {};
     const cargos = {};
     funcionarios.forEach(f => {
@@ -92,7 +88,6 @@ function processarFuncionarios(data, egressos, callback) {
 }
 
 
-// Rota para upload de ambos os arquivos
 app.post('/upload', upload.fields([{ name: 'csvfile', maxCount: 1 }, { name: 'txtfile', maxCount: 1 }]), (req, res) => {
     const csvFilePath = path.join(__dirname, 'data', 'funcionarios.csv');
     if (req.files['csvfile']) {
@@ -112,17 +107,15 @@ app.post('/upload', upload.fields([{ name: 'csvfile', maxCount: 1 }, { name: 'tx
         console.log('Arquivo TXT renomeado para', txtFinalPath);
     }
 
-    res.redirect('/resultado'); // Redireciona para a página de resultados
+    res.redirect('/resultado'); 
 });
 
-// Rota para mostrar resultados
 app.get('/resultado', (req, res) => {
     lerArquivoFuncionarios((result) => {
         res.render('resultado', { funcionarios: result.funcionarios, mediaSalarial: result.mediaSalarial });
     });
 });
 
-// Rota para mostrar gráficos
 app.get('/graficos', (req, res) => {
     lerArquivoFuncionarios((result) => {
         res.render('graficos', { 
