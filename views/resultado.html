@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Egressos da UFRR que Trabalham na Prefeitura</h1>
-        <p class="text-center"><strong>Quantidade de Egressos Encontrados:</strong> <%= funcionarios.length %></p>
+        <p class="text-center"><strong>Quantidade de Egressos Encontrados:</strong> <%= funcionarios ? funcionarios.length : 0 %></p>
 
         <table class="table table-bordered table-striped">
             <thead>
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (funcionarios.length > 0) { %>
+                <% if (funcionarios && funcionarios.length > 0) { %>
                     <% funcionarios.forEach((funcionario, index) => { %>
                         <tr>
                             <td class="text-center"><%= index + 1 %></td> 
@@ -40,10 +40,9 @@
         </table>
         
         <div class="my-4">
-            <a href="/" class=" btn btn-secondary"> Voltar</a>
-            <a href="/graficos" class="btn btn-primary"> Ver Graficos</a>
+            <a href="/" class="btn btn-secondary">Voltar</a>
+            <a href="/graficos" class="btn btn-primary">Ver Gráficos</a>
         </div>
-
     </div>
 </body>
 </html>
